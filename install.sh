@@ -1,7 +1,14 @@
 #!/bin/bash
 
+# Variables...
 WEB_PAGE_NAME='OsmRelationCheckWebPage'
+BASE_DST_DIR=/var/www/html
+BASE_LIBS_SRC_DIR="libs"
+OL_VERSION=6.4.3
+OL_LIB_FILE_LIST="ol.css ol.css.map ol.js ol.js.map";
+DEV_FILE_LIST="cookies.js globeicon.png index.html main.js styles.css";
 
+# Starting...
 echo "## $WEB_PAGE_NAME Install Script....";
 
 # Check if script is being run as root
@@ -13,8 +20,6 @@ then
 fi
 
 # Check if base dir exists...
-BASE_DST_DIR=/var/www/html
-
 if [[ ! -d $BASE_DST_DIR ]];
 then
   echo "Creating base dir: <$BASE_DST_DIR>";
@@ -22,7 +27,6 @@ then
 fi
 
 # Check if base lib dir exists...
-BASE_LIBS_SRC_DIR="libs"
 BASE_LIBS_DST_DIR="$BASE_DST_DIR/$BASE_LIBS_SRC_DIR"
 
 if [[ ! -d $BASE_LIBS_DST_DIR ]];
@@ -32,7 +36,6 @@ then
 fi
 
 # Copy of OpenLayers library...
-OL_VERSION=6.4.3
 OL_LIB_SRC_DIR="$BASE_LIBS_SRC_DIR/ol-v$OL_VERSION-dist";
 OL_LIB_DST_DIR="$BASE_DST_DIR/$OL_LIB_SRC_DIR";
 
@@ -41,8 +44,6 @@ then
   echo "Creating OpenLayers lib dir: <$OL_LIB_DST_DIR>";
   mkdir $OL_LIB_DST_DIR
 fi
-
-OL_LIB_FILE_LIST="ol.css ol.css.map ol.js ol.js.map";
 
 for FILE in $OL_LIB_FILE_LIST;
 do
@@ -53,8 +54,6 @@ do
 done;
 
 # Copy of development files...
-DEV_FILE_LIST="globeicon.png index.html main.js styles.css";
-
 for FILE in $DEV_FILE_LIST;
 do
   echo "Copying file $FILE...";

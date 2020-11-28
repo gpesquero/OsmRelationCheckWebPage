@@ -48,10 +48,36 @@ function init() {
     ]
   })
   
+  // Add all base layers to map 
   map.addLayer(baseLayerGroup);
+
+  // Set onMoveEnd event
+  map.on('moveend', onMapMoveEnd);
+
+  function onMapMoveEnd(evt) {
+
+    //console.log('onMapMoveEnd');
+
+    var center = view.getCenter();
+
+    var lonLatPos = ol.proj.transform(center, 'EPSG:3857', 'EPSG:4326');
+
+    var lon = lonLatPos[0];
+    var lat = lonLatPos[1];
+    var zoom = view.getZoom();
+
+    setCookie('mapLon', lon);
+    setCookie('mapLat', lat);
+    setCookie('mapZoom', zoom);
+
+    //console.log('Lon: '+lon.toFixed(6));
+    //console.log('Lat: '+lat.toFixed(6));
+    //console.log('Zoom: '+zoom.toFixed(2));
+  }
   
   // Layer switching...
-  const baseLayerElements = document.querySelectorAll('.sidebar > input[type=radio]');
+  const baseLayerElements = document.querySelectorAll('.sidebar > input[name=baseLayerRadioButton]');
+
   for (let baseLayerElement of baseLayerElements) {
 
     baseLayerElement.addEventListener('change', function() {
@@ -69,12 +95,15 @@ function init() {
           element.setVisible(true);
         }
         else {
+
           element.setVisible(false);
         }
         
       })
     })
   }
+
+  readCookies();
   
   /*
   // Geolocation object setup to track the position of the device
@@ -90,50 +119,19 @@ function init() {
   });
   */
 
-  function setCookie(name, value) {
-    
-    // Encode value in order to escape semicolons, commas, and whitespace
-    var cookie = name + "=" + encodeURIComponent(value);
-
-    var daysToLive = 30;
-    
-    if(typeof daysToLive === "number") {
-        /* Sets the max-age attribute so that the cookie expires
-        after the specified number of days */
-        cookie += "; max-age=" + (daysToLive*24*60*60);
-
-        cookie += "; path=/";
-        
-        document.cookie = cookie;
-
-        console.log('setCookie(): '+cookie);
-
-        console.log('Cookies: '+document.cookie);
-    }
-  }
   
-  function getCookie(name) {
 
-    console.log('Cookies: '+document.cookie);
+  function setBaseLayerRadioButton(baseLayerName) {
 
-    // Split cookie string and get all individual name=value pairs in an array
-    var cookieArr = document.cookie.split(";");
-    
-    // Loop through the array elements
-    for (var i = 0; i < cookieArr.length; i++) {
+    console.log('setBaseLayerRadioButton() '+baseLayerName);
 
-        var cookiePair = cookieArr[i].split("=");
-        
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
-        if (name == cookiePair[0].trim()) {
-            // Decode the cookie value and return
-            return decodeURIComponent(cookiePair[1]);
-        }
+    // Get all radio buttons...
+    const baseLayerElements = document.querySelectorAll('.sidebar > input[name=baseLayerRadioButton]');
+
+    for (let baseLayerElement of baseLayerElements) {
+
+      baseLayerElement.checked = (baseLayerElement.value === baseLayerName);
     }
-    
-    // Return null if not found
-    return null;
   }
   
   function readCookies() {
@@ -149,25 +147,44 @@ function init() {
       console.log('setVisible() OsmHumanitarian');
 
       osmHumanitarianLayer.setVisible(true);
+
+      setBaseLayerRadioButton('OsmHumanitarian');
     }
     else if (baseLayer == 'OpenTopoMap') {
 
       console.log('setVisible() OpenTopoMap');
       
       openTopoMapLayer.setVisible(true);
+
+      setBaseLayerRadioButton('OpenTopoMap');
     }
     else {
 
       console.log('setVisible() OsmStandard');
       
       osmStandardLayer.setVisible(true);
+
+      setBaseLayerRadioButton('OsmStandard');
     }
+
+    var lon = parseFloat(getCookie('mapLon'));
+    var lat = parseFloat(getCookie('mapLat'));
+    var zoom = parseFloat(getCookie('mapZoom'));
+
+    console.log('Lon: '+lon.toFixed(6));
+    console.log('Lat: '+lat.toFixed(6));
+    console.log('Zoom: '+zoom.toFixed(2));
+
+    var center = ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857');
+
+    view.setCenter(center);
+    view.setZoom(zoom);
   }
 
-  readCookies();
-
+  /*
   map.on('click', function(e) {
     console.log(e.coordinate)
   })
+  */
 }
 

@@ -2,12 +2,9 @@ window.onload = init;
 
 function init() {
 
-  var defaultLocation = ol.proj.transform([-3.461, 40.298], 'EPSG:4326', 'EPSG:3857');
-  var defaultZoom = 6;
-
   const view = new ol.View({
     projection: 'EPSG:3857',
-    center: ol.proj.transform([0, 0], 'EPSG:4326', 'EPSG:3857'),
+    center: ol.proj.transform([0.0, 0.0], 'EPSG:4326', 'EPSG:3857'),
     zoom: 1,
     maxZoom: 19,
     minZoom: 1
@@ -138,7 +135,7 @@ function init() {
 
     console.log('readCookies() init');
 
-    var baseLayer = getCookie('baseLayer');
+    var baseLayer = getCookie('baseLayer', 'OsmStandard');
 
     console.log('readCookies() baseLayer='+baseLayer);
     
@@ -167,10 +164,27 @@ function init() {
       setBaseLayerRadioButton('OsmStandard');
     }
 
-    var lon = parseFloat(getCookie('mapLon'));
-    var lat = parseFloat(getCookie('mapLat'));
-    var zoom = parseFloat(getCookie('mapZoom'));
+    var lonString=getCookie('mapLon', '0.0');
+    console.log('lonString: '+lonString);
 
+    var lon = parseFloat(getCookie('mapLon', '0.0'));
+    var lat = parseFloat(getCookie('mapLat', '0.0'));
+    var zoom = parseFloat(getCookie('mapZoom', '4.0'));
+
+    if (isNaN(lon)) {
+
+      lon = 0.0;
+    }
+
+    if (isNaN(lat)) {
+
+      lat = 0.0;
+    }
+    if (isNaN(zoom)) {
+
+      zoom = 4.0;
+    }
+   
     console.log('Lon: '+lon.toFixed(6));
     console.log('Lat: '+lat.toFixed(6));
     console.log('Zoom: '+zoom.toFixed(2));

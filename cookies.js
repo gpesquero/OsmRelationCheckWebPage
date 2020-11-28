@@ -22,7 +22,7 @@ var daysToLive = 30;
   }
 }
 
-function getCookie(name) {
+function getCookie(name, defaultValue) {
 
   //console.log('Cookies: '+document.cookie);
 
@@ -42,7 +42,9 @@ function getCookie(name) {
       return decodeURIComponent(cookiePair[1]);
     }
   }
+
+  console.log('defaultValue: '+defaultValue);
     
-  // Return null if not found
-  return null;
+  // Return 'defaultValue' if not found
+  return defaultValue;
 }

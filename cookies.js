@@ -6,7 +6,7 @@ var cookie = name + "=" + encodeURIComponent(value);
 
 var daysToLive = 30;
 
-  if(typeof daysToLive === "number") {
+  if (typeof daysToLive === "number") {
 
     /* Sets the max-age attribute so that the cookie expires
     after the specified number of days */

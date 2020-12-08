@@ -66,10 +66,6 @@ function init() {
     setCookie('mapLon', lon);
     setCookie('mapLat', lat);
     setCookie('mapZoom', zoom);
-
-    //console.log('Lon: '+lon.toFixed(6));
-    //console.log('Lat: '+lat.toFixed(6));
-    //console.log('Zoom: '+zoom.toFixed(2));
   }
   
   // Layer switching...
@@ -100,6 +96,78 @@ function init() {
     })
   }
 
+  // Vector layers
+
+  const fillStyle = new ol.style.Fill({
+    color: [84, 118, 255, 1]
+  })
+
+  const strokeStyle = new ol.style.Stroke({
+    color: [0, 0, 0, 1],
+    width: 3.0
+  })
+
+  const circleStyle = new ol.style.Circle({
+    fill: new ol.style.Fill({
+      color: [255, 0, 0, 0.8]
+    }),
+    radius: 7,
+    stroke: strokeStyle
+  })
+
+  const vectorData = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './data/errors.geojson',
+      format: new ol.format.GeoJSON() 
+    }),
+    visible: true,
+    title: 'VectorData',
+    style: new ol.style.Style({
+      //fill: fillStyle,
+      stroke: strokeStyle,
+      image: circleStyle
+    })
+  })
+
+  map.addLayer(vectorData);
+
+  // Vector feature clicks
+
+  const overlayContainerElement = document.querySelector('.overlay-container');
+  
+  const overlayLayer = new ol.Overlay({
+
+    element: overlayContainerElement
+  })
+
+  map.addOverlay(overlayLayer);
+
+  const overlayFeatureTitle = document.getElementById('feature-title');
+  const overlayFeatureRelation = document.getElementById('feature-relation');
+  const overlayFeatureDescription = document.getElementById('feature-description');
+
+  map.on('click', function(e) {
+
+    overlayLayer.setPosition(undefined);
+
+    map.forEachFeatureAtPixel(e.pixel, function(feature, layer) {
+
+      let coordinate = e.coordinate;
+
+      let title = feature.get('title');
+      let relation = feature.get('relation');
+      let description = feature.get('description');
+      
+      console.log('onClicked(): relation='+relation+", description="+description);
+      
+      overlayLayer.setPosition(coordinate);
+
+      overlayFeatureTitle.innerHTML = title;
+      overlayFeatureRelation.innerHTML = relation;
+      overlayFeatureDescription.innerHTML = description;
+    })
+  })
+  
   readCookies();
   
   /*
@@ -115,8 +183,6 @@ function init() {
     view.setCenter([parseFloat(pos[0]), parseFloat(pos[1])]);
   });
   */
-
-  
 
   function setBaseLayerRadioButton(baseLayerName) {
 
@@ -164,22 +230,22 @@ function init() {
       setBaseLayerRadioButton('OsmStandard');
     }
 
-    var lonString=getCookie('mapLon', '0.0');
-    console.log('lonString: '+lonString);
-
     var lon = parseFloat(getCookie('mapLon', '0.0'));
-    var lat = parseFloat(getCookie('mapLat', '0.0'));
-    var zoom = parseFloat(getCookie('mapZoom', '4.0'));
-
+    
     if (isNaN(lon)) {
 
       lon = 0.0;
     }
 
+    var lat = parseFloat(getCookie('mapLat', '0.0'));
+
     if (isNaN(lat)) {
 
       lat = 0.0;
     }
+
+    var zoom = parseFloat(getCookie('mapZoom', '4.0'));
+
     if (isNaN(zoom)) {
 
       zoom = 4.0;

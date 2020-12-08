@@ -4,7 +4,8 @@
 
 body{
   margin: 0;
-  padding: 0
+  padding: 0;
+  font-family: Arial;
 }
 
 .grid-container{
@@ -16,4 +17,31 @@ body{
 .sidebar{
   margin-left: 15px
 }
-  
+
+/* Feature Overlay */
+.overlay-container{
+  background-color: ivory;
+  width: 150px;
+  color: black;
+  text-align: center;
+  border-color: black;
+  border-radius: 3px;
+  border-style: solid;
+  padding: 2px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.overlay-container #feature-type::after{
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}

@@ -107,13 +107,63 @@ function init() {
     width: 3.0
   })
 
-  const circleStyle = new ol.style.Circle({
+  const circleStyleHigh = new ol.style.Circle({
     fill: new ol.style.Fill({
       color: [255, 0, 0, 0.8]
     }),
     radius: 7,
     stroke: strokeStyle
   })
+
+  const circleStyleMedium = new ol.style.Circle({
+    fill: new ol.style.Fill({
+      color: [255, 165, 0, 0.8]
+    }),
+    radius: 7,
+    stroke: strokeStyle
+  })
+
+  const circleStyleLow = new ol.style.Circle({
+    fill: new ol.style.Fill({
+      color: [255, 255, 0, 0.8]
+    }),
+    radius: 7,
+    stroke: strokeStyle
+  })
+
+  const featureStyleHigh = new ol.style.Style({
+    stroke: strokeStyle,
+    image: circleStyleHigh
+  })
+
+  const featureStyleMedium = new ol.style.Style({
+    stroke: strokeStyle,
+    image: circleStyleMedium
+  })
+
+  const featureStyleLow = new ol.style.Style({
+    stroke: strokeStyle,
+    image: circleStyleLow
+  })
+
+  function featureStyleFunction(feature, resolution) {
+
+    var level = feature.get('level');
+
+    var style;
+
+    if (level == 'HIGH') {
+      style = featureStyleHigh;
+    }
+    else if (level == 'MEDIUM') {
+      style = featureStyleMedium;
+    }
+    else {
+      style = featureStyleLow;
+    }
+
+    return style;
+  }
 
   const vectorData = new ol.layer.VectorImage({
     source: new ol.source.Vector({
@@ -122,11 +172,7 @@ function init() {
     }),
     visible: true,
     title: 'VectorData',
-    style: new ol.style.Style({
-      //fill: fillStyle,
-      stroke: strokeStyle,
-      image: circleStyle
-    })
+    style: featureStyleFunction 
   })
 
   map.addLayer(vectorData);
@@ -260,11 +306,5 @@ function init() {
     view.setCenter(center);
     view.setZoom(zoom);
   }
-
-  /*
-  map.on('click', function(e) {
-    console.log(e.coordinate)
-  })
-  */
 }
 

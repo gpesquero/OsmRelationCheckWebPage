@@ -146,36 +146,93 @@ function init() {
     image: circleStyleLow
   })
 
-  function featureStyleFunction(feature, resolution) {
-
-    var level = feature.get('level');
-
-    var style;
-
-    if (level == 'HIGH') {
-      style = featureStyleHigh;
-    }
-    else if (level == 'MEDIUM') {
-      style = featureStyleMedium;
-    }
-    else {
-      style = featureStyleLow;
-    }
-
-    return style;
-  }
-
-  const vectorData = new ol.layer.VectorImage({
+  const vectorErrorsLevelHigh = new ol.layer.VectorImage({
     source: new ol.source.Vector({
-      url: './data/errors.geojson',
+      url: './data/errors_high.geojson',
       format: new ol.format.GeoJSON() 
     }),
     visible: true,
-    title: 'VectorData',
-    style: featureStyleFunction 
+    title: 'VectorErrorsLevelHigh',
+    style: featureStyleHigh 
   })
 
-  map.addLayer(vectorData);
+  const vectorErrorsLevelMedium = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './data/errors_medium.geojson',
+      format: new ol.format.GeoJSON() 
+    }),
+    visible: true,
+    title: 'VectorErrorsLevelMedium',
+    style: featureStyleMedium
+  })
+
+  const vectorErrorsLevelLow = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './data/errors_low.geojson',
+      format: new ol.format.GeoJSON() 
+    }),
+    visible: true,
+    title: 'VectorErrorsLevelLow',
+    style: featureStyleLow 
+  })
+
+  // Layer group
+  const vectorErrorsGroup = new ol.layer.Group({
+    layers: [
+      vectorErrorsLevelLow, vectorErrorsLevelMedium, vectorErrorsLevelHigh 
+    ]
+  })
+
+  map.addLayer(vectorErrorsGroup);
+
+  function setErrorLevelCheckBox(checkboxName, enable) {
+
+    console.log('setErrorLevelCheckBox() '+checkboxName+', '+enable);
+
+    // Get checkboxes...
+    const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+
+    for (let errorLevelElement of errorLevelElements) {
+
+      if (errorLevelElement.value === checkboxName) {
+
+        errorLevelElement.checked = enable;
+      }
+    }
+  }
+
+  // Error vector selection...
+  const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+
+  for (let errorLevelElement of errorLevelElements) {
+
+    errorLevelElement.addEventListener('change', function() {
+
+      console.log('checkbox changed');
+
+      // Get checkboxes...
+      const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+
+      for (let errorLevelElement of errorLevelElements) {
+
+        if (errorLevelElement.value === 'error_level_high') {
+  
+          setCookie('error_level_high', errorLevelElement.checked);
+          vectorErrorsLevelHigh.setVisible(errorLevelElement.checked);
+        }
+        else if (errorLevelElement.value === 'error_level_medium') {
+  
+          setCookie('error_level_medium', errorLevelElement.checked);
+          vectorErrorsLevelMedium.setVisible(errorLevelElement.checked);
+        }
+        else if (errorLevelElement.value === 'error_level_low') {
+  
+          setCookie('error_level_low', errorLevelElement.checked);
+          vectorErrorsLevelLow.setVisible(errorLevelElement.checked);
+        }
+      }
+    })
+  }
 
   // Vector feature clicks
 
@@ -275,6 +332,18 @@ function init() {
 
       setBaseLayerRadioButton('OsmStandard');
     }
+
+    var errorLevelHigh = (getCookie('error_level_high', 'true') === 'true');
+    vectorErrorsLevelHigh.setVisible(errorLevelHigh);
+    setErrorLevelCheckBox('error_level_high', errorLevelHigh);
+
+    var errorLevelMedium = (getCookie('error_level_medium', 'true') === 'true');
+    vectorErrorsLevelMedium.setVisible(errorLevelMedium);
+    setErrorLevelCheckBox('error_level_medium', errorLevelMedium);
+
+    var errorLevelLow = (getCookie('error_level_low', 'true') === 'true');
+    vectorErrorsLevelLow.setVisible(errorLevelLow);
+    setErrorLevelCheckBox('error_level_low', errorLevelLow);
 
     var lon = parseFloat(getCookie('mapLon', '0.0'));
     

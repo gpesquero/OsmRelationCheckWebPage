@@ -54,6 +54,12 @@ function updateErrorFile() {
             logError "wget command failed!!"
         fi
     fi
+
+    # Second, create OSM databases...
+
+    java -jar ./jars/CreateOsmDatabases.jar ./data
+
+    
 }
 
 

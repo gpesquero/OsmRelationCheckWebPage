@@ -24,16 +24,40 @@ function logError() {
 }
 
 ##########################################################
-## Update of error file...
+## Manage Data directories...
 
-function updateErrorFile() {
+function manageDataDir() {
 
-    logInfo 'Update error file: '$1
+    logInfo 'Managing data directory: ./data/'$country'-'$currentDate'...'
+
+    # Delete all country files and directories...
+
+    ###     cmdDeleteFiles="rm -rf ./data/"$country"*"
+
+    logInfo "Deleting files: $cmdDeleteFiles"
+
+    $cmdDeleteFiles
+
+    # Create directory country-date
+
+    cmdCreateDir="mkdir ./data/$country-$currentDate"
+
+    logInfo "Creating file: $cmdCreateDir"
+
+    $cmdCreateDir
+}
+
+##########################################################
+## Download PBF file...
+
+function downloadPbfFile() {
+
+    logInfo 'Downloading Pbf file: '$country'-'$currentDate
 
     # First, download OSM PBF source file...
 
-    srcFile='http://download.geofabrik.de/europe/spain-latest.osm.pbf'
-    dstFile='./data/spain-'$1'.osm.pbf'
+    srcFile='http://download.geofabrik.de/europe/'$country'-latest.osm.pbf'
+    dstFile='./data/'$country'-'$currentDate'/'$country'.osm.pbf'
 
     #logInfo 'srcFile: '$srcFile
     #logInfo 'dstFile: '$dstFile
@@ -54,14 +78,57 @@ function updateErrorFile() {
             logError "wget command failed!!"
         fi
     fi
-
-    # Second, create OSM databases...
-
-    java -jar ./jars/CreateOsmDatabases.jar ./data
-
-    
 }
 
+##########################################################
+## Create OSM Database...
+
+function createOsmDatabase() {
+
+    logInfo 'Checking for OSM Database...'
+
+    databaseFileName='./data/'$country'-'$currentDate'/'$country'.db'
+
+    if [ -f "$databaseFileName" ];
+    then
+        logInfo "OSM database <'$databaseFileName'> already exists"
+    else
+
+        logInfo 'Creating OSM Database: '$country'-'$currentDate
+
+        java -jar ./jars/CreateOsmDatabases.jar './data/'$country'-'$currentDate
+    fi
+}
+
+##########################################################
+## Process OSM Database...
+
+function processOsmDatabase() {
+
+    logInfo 'Process OSM Database...'
+
+    xmlFileName='./data/'$1
+    
+    if [ -f "$xmlFileName" ];
+    then
+        logInfo "XML file <'$xmlFileName'> exists"
+
+        java -jar ./jars/ProcessOsmDatabase.jar $xmlFileName --dataDir=$country'-'$currentDate
+    else
+
+        logError "XML file <'$xmlFileName'> does not exist"
+    fi
+}
+
+##########################################################
+## Copy GeoJson Files...
+
+function copyGeoJsonFiles() {
+
+    logInfo 'Copying GeoJson Files...'
+
+    cp ./data/$country'-'$currentDate/*.geojson /var/www/html/data
+}
 
 ##########################################################
 ## Start of Looper...
@@ -70,22 +137,35 @@ logInfo 'Starting Looper...'
 
 while true
 do
-	logInfo 'Checking for error file...'
+	logInfo 'Checking for data files...'
 
+    country='spain'
     currentDate=`date +%Y.%m.%d`
     
-    errorFileName='./data/errors_'$currentDate'.geojson'
+    dataFileName='./data/'$country'-'$currentDate'/errors_high.geojson'
 
-    logInfo 'Error file Name <'$errorFileName'>...'
+    logInfo 'Data file Name <'$dataFileName'>...'
 
-    if [ -f "$errorFileName" ];
+    if [ -f "$dataFileName" ];
     then
-        logInfo "Error file already exists"
+        logInfo "Data file already exists"
     else
-        logInfo "Error file does not exist"
+        logInfo "Data file does not exist"
 
-        # Update error file...
-        updateErrorFile $currentDate
+        # Manage data directories
+        manageDataDir
+
+        # Download PBF file...
+        downloadPbfFile
+
+        # Create OSM database...
+        createOsmDatabase
+
+        # Process OSM database...
+        processOsmDatabase 'spain_check_bus_madrid.xml'
+
+        # Copy GeoJSON files...
+        copyGeoJsonFiles
     fi
 
 	logInfo 'Finished!! Sleeping for 6 hours...'

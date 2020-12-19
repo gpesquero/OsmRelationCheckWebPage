@@ -185,6 +185,30 @@ function init() {
 
   map.addLayer(vectorErrorsGroup);
 
+  var features = vectorErrorsLevelLow.getSource().getFeatures();
+
+  /*
+  const vectorSource = new ol.source.Vector({
+    url: './data/errors_high.geojson',
+    format: new ol.format.GeoJSON() 
+  })
+
+  //console.log(vectorSource);
+
+  var features = vectorSource.getFeatures();
+
+  console.log(features);
+
+  var count = 0;
+
+  vectorSource.forEachFeature(function(feature) {
+
+    count++;
+    
+    console.log(count);
+  })
+  */
+
   function setErrorLevelCheckBox(checkboxName, enable) {
 
     console.log('setErrorLevelCheckBox() '+checkboxName+', '+enable);

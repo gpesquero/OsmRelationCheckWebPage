@@ -32,7 +32,7 @@ function manageDataDir() {
 
     # Delete all country files and directories...
 
-    ###     cmdDeleteFiles="rm -rf ./data/"$country"*"
+    cmdDeleteFiles="rm -rf ./data/"$country"*"
 
     logInfo "Deleting files: $cmdDeleteFiles"
 
@@ -162,7 +162,7 @@ do
         createOsmDatabase
 
         # Process OSM database...
-        processOsmDatabase 'spain_check_bus_madrid.xml'
+        processOsmDatabase 'check_bus_madrid.xml'
 
         # Copy GeoJSON files...
         copyGeoJsonFiles

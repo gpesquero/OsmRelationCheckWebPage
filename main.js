@@ -90,8 +90,7 @@ function init() {
         else {
 
           element.setVisible(false);
-        }
-        
+        }      
       })
     })
   }
@@ -146,35 +145,83 @@ function init() {
     image: circleStyleLow
   })
 
+  var vectorSourceLevelHigh = new ol.source.Vector({
+    url: './data/errors_high.geojson',
+    format: new ol.format.GeoJSON() 
+  })
+  
   const vectorErrorsLevelHigh = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-      url: './data/errors_high.geojson',
-      format: new ol.format.GeoJSON() 
-    }),
+    source: vectorSourceLevelHigh,
     visible: true,
     title: 'VectorErrorsLevelHigh',
     style: featureStyleHigh 
   })
 
+  var listenerKeyLevelHigh = vectorSourceLevelHigh.on('change', function(e) {
+  
+    if (vectorSourceLevelHigh.getState() == 'ready') {
+    
+      var featureCount = vectorSourceLevelHigh.getFeatures().length;
+
+      var element = document.getElementById("label_high");
+
+      element.innerHTML = "High ("+featureCount+")";
+    
+      ol.Observable.unByKey(listenerKeyLevelHigh);
+    }
+  });
+
+  var vectorSourceLevelMedium = new ol.source.Vector({
+    url: './data/errors_medium.geojson',
+    format: new ol.format.GeoJSON() 
+  })
+
   const vectorErrorsLevelMedium = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-      url: './data/errors_medium.geojson',
-      format: new ol.format.GeoJSON() 
-    }),
+    source: vectorSourceLevelMedium,
     visible: true,
     title: 'VectorErrorsLevelMedium',
     style: featureStyleMedium
   })
 
+  var listenerKeyLevelMedium = vectorSourceLevelMedium.on('change', function(e) {
+  
+    if (vectorSourceLevelMedium.getState() == 'ready') {
+    
+      var featureCount = vectorSourceLevelMedium.getFeatures().length;
+
+      var element = document.getElementById("label_medium");
+
+      element.innerHTML = "Medium ("+featureCount+")";
+    
+      ol.Observable.unByKey(listenerKeyLevelMedium);
+    }
+  });
+
+  var vectorSourceLevelLow = new ol.source.Vector({
+    url: './data/errors_low.geojson',
+    format: new ol.format.GeoJSON() 
+  })
+  
   const vectorErrorsLevelLow = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-      url: './data/errors_low.geojson',
-      format: new ol.format.GeoJSON() 
-    }),
+    source: vectorSourceLevelLow,
     visible: true,
     title: 'VectorErrorsLevelLow',
     style: featureStyleLow 
   })
+
+  var listenerKeyLevelLow = vectorSourceLevelLow.on('change', function(e) {
+  
+    if (vectorSourceLevelLow.getState() == 'ready') {
+    
+      var featureCount = vectorSourceLevelLow.getFeatures().length;
+
+      var element = document.getElementById("label_low");
+
+      element.innerHTML = "Low ("+featureCount+")";
+    
+      ol.Observable.unByKey(listenerKeyLevelLow);
+    }
+  });
 
   // Layer group
   const vectorErrorsGroup = new ol.layer.Group({

@@ -97,11 +97,12 @@ function init() {
 
   // Vector layers
 
-  const fillStyle = new ol.style.Fill({
-    color: [84, 118, 255, 1]
+  const boundaryStrokeStyle = new ol.style.Stroke({
+    color: [0, 0, 255, 1],
+    width: 3.0
   })
 
-  const strokeStyle = new ol.style.Stroke({
+  const errorStrokeStyle = new ol.style.Stroke({
     color: [0, 0, 0, 1],
     width: 3.0
   })
@@ -111,7 +112,7 @@ function init() {
       color: [255, 0, 0, 0.8]
     }),
     radius: 7,
-    stroke: strokeStyle
+    stroke: errorStrokeStyle
   })
 
   const circleStyleMedium = new ol.style.Circle({
@@ -119,7 +120,7 @@ function init() {
       color: [255, 165, 0, 0.8]
     }),
     radius: 7,
-    stroke: strokeStyle
+    stroke: errorStrokeStyle
   })
 
   const circleStyleLow = new ol.style.Circle({
@@ -127,23 +128,70 @@ function init() {
       color: [255, 255, 0, 0.8]
     }),
     radius: 7,
-    stroke: strokeStyle
+    stroke: errorStrokeStyle
+  })
+
+  const featureStyleBoundary = new ol.style.Style({
+    stroke: boundaryStrokeStyle
   })
 
   const featureStyleHigh = new ol.style.Style({
-    stroke: strokeStyle,
+    stroke: errorStrokeStyle,
     image: circleStyleHigh
   })
 
   const featureStyleMedium = new ol.style.Style({
-    stroke: strokeStyle,
+    stroke: errorStrokeStyle,
     image: circleStyleMedium
   })
 
   const featureStyleLow = new ol.style.Style({
-    stroke: strokeStyle,
+    stroke: errorStrokeStyle,
     image: circleStyleLow
   })
+
+  var vectorSourceBoundary = new ol.source.Vector({
+    url: './data/boundary.geojson',
+    format: new ol.format.GeoJSON() 
+  })
+  
+  const vectorBoundary = new ol.layer.VectorImage({
+    source: vectorSourceBoundary,
+    visible: true,
+    title: 'VectorBoundary',
+    style: featureStyleBoundary 
+  })
+
+  var listenerKeyBoundary = vectorSourceBoundary.on('change', function(e) {
+  
+    if (vectorSourceBoundary.getState() == 'ready') {
+    
+      var features = vectorSourceBoundary.getFeatures();
+
+      var featureCount = features.length;
+
+      console.log("Boundary count:"+featureCount);
+
+      var pbfDateStamp, pbfTimeStamp;
+
+      if (featureCount>0) {
+        
+        pbfDateStamp=features[0].get('pbf_date');
+        pbfTimeStamp=features[0].get('pbf_time');
+      }
+      else {
+
+        pbfDateStamp='????';
+        pbfTimeStamp='????';
+      }
+
+      var element = document.getElementById('data_time_stamp');
+
+      element.innerHTML = pbfDateStamp + " " + pbfTimeStamp;
+
+      ol.Observable.unByKey(listenerKeyBoundary);
+    }
+  });
 
   var vectorSourceLevelHigh = new ol.source.Vector({
     url: './data/errors_high.geojson',
@@ -226,35 +274,13 @@ function init() {
   // Layer group
   const vectorErrorsGroup = new ol.layer.Group({
     layers: [
-      vectorErrorsLevelLow, vectorErrorsLevelMedium, vectorErrorsLevelHigh 
+      vectorBoundary, vectorErrorsLevelLow, vectorErrorsLevelMedium, vectorErrorsLevelHigh 
     ]
   })
 
   map.addLayer(vectorErrorsGroup);
 
   var features = vectorErrorsLevelLow.getSource().getFeatures();
-
-  /*
-  const vectorSource = new ol.source.Vector({
-    url: './data/errors_high.geojson',
-    format: new ol.format.GeoJSON() 
-  })
-
-  //console.log(vectorSource);
-
-  var features = vectorSource.getFeatures();
-
-  console.log(features);
-
-  var count = 0;
-
-  vectorSource.forEachFeature(function(feature) {
-
-    count++;
-    
-    console.log(count);
-  })
-  */
 
   function setErrorLevelCheckBox(checkboxName, enable) {
 

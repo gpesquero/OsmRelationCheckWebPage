@@ -6,7 +6,17 @@ BASE_DST_DIR=/var/www/html
 BASE_LIBS_SRC_DIR="libs"
 OL_VERSION=6.4.3
 OL_LIB_FILE_LIST="ol.css ol.css.map ol.js ol.js.map";
-DEV_FILE_LIST="cookies.js globeicon.png index.html main.js styles.css";
+DEV_FILE_LIST="base_layers.js \
+               cookies.js \
+               globeicon.png \
+               index.html \
+               main.js \
+               styles.css \
+               vector_layer_admin.js \
+               vector_layer_boundary.js \
+               vector_layer_bus.js \
+               vector_layer_styles.js \
+               vector_layers.js";
 
 # Starting...
 echo "## $WEB_PAGE_NAME Install Script....";

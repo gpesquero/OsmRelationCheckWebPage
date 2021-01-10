@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ProcessOsmDatabase inputFileName="spain" outputFileName="admin_spain">
+
+  <relation type="boundary">
+  
+    <filter boundary="administrative">
+	    <check count="11754" boundary="admin">
+	    </check>
+	  </filter>
+
+  </relation>
+
+</ProcessOsmDatabase>

@@ -48,3 +48,91 @@ function getCookie(name, defaultValue) {
   // Return 'defaultValue' if not found
   return defaultValue;
 }
+
+function readCookies() {
+
+  console.log('readCookies() init');
+
+  var baseLayer = getCookie('baseLayer', 'OsmStandard');
+
+  console.log('readCookies() baseLayer='+baseLayer);
+  
+  if (baseLayer == 'OsmHumanitarian') {
+
+    console.log('setVisible() OsmHumanitarian');
+
+    osmHumanitarianLayer.setVisible(true);
+
+    setBaseLayerRadioButton('OsmHumanitarian');
+  }
+  else if (baseLayer == 'OpenTopoMap') {
+
+    console.log('setVisible() OpenTopoMap');
+    
+    openTopoMapLayer.setVisible(true);
+
+    setBaseLayerRadioButton('OpenTopoMap');
+  }
+  else {
+
+    console.log('setVisible() OsmStandard');
+    
+    osmStandardLayer.setVisible(true);
+
+    setBaseLayerRadioButton('OsmStandard');
+  }
+
+  var adminErrorHigh = (getCookie('admin_error_high', 'true') === 'true');
+  vectorErrorsAdminHigh.setVisible(adminErrorHigh);
+  setErrorLevelCheckBox('admin_error_high', adminErrorHigh);
+
+  var adminErrorMedium = (getCookie('admin_error_medium', 'true') === 'true');
+  vectorErrorsAdminMedium.setVisible(adminErrorMedium);
+  setErrorLevelCheckBox('admin_error_medium', adminErrorMedium);
+
+  var adminErrorLow = (getCookie('admin_error_low', 'true') === 'true');
+  vectorErrorsAdminLow.setVisible(adminErrorLow);
+  setErrorLevelCheckBox('admin_error_low', adminErrorLow);
+  
+  var busErrorHigh = (getCookie('bus_error_high', 'true') === 'true');
+  vectorErrorsBusHigh.setVisible(busErrorHigh);
+  setErrorLevelCheckBox('bus_error_high', busErrorHigh);
+
+  var busErrorMedium = (getCookie('bus_error_medium', 'true') === 'true');
+  vectorErrorsBusMedium.setVisible(busErrorMedium);
+  setErrorLevelCheckBox('bus_error_medium', busErrorMedium);
+
+  var busErrorLow = (getCookie('bus_error_low', 'true') === 'true');
+  vectorErrorsBusLow.setVisible(busErrorLow);
+  setErrorLevelCheckBox('bus_error_low', busErrorLow);
+
+  var lon = parseFloat(getCookie('mapLon', '0.0'));
+  
+  if (isNaN(lon)) {
+
+    lon = 0.0;
+  }
+
+  var lat = parseFloat(getCookie('mapLat', '0.0'));
+
+  if (isNaN(lat)) {
+
+    lat = 0.0;
+  }
+
+  var zoom = parseFloat(getCookie('mapZoom', '4.0'));
+
+  if (isNaN(zoom)) {
+
+    zoom = 4.0;
+  }
+ 
+  console.log('Lon: '+lon.toFixed(6));
+  console.log('Lat: '+lat.toFixed(6));
+  console.log('Zoom: '+zoom.toFixed(2));
+
+  var center = ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857');
+
+  mapView.setCenter(center);
+  mapView.setZoom(zoom);
+}

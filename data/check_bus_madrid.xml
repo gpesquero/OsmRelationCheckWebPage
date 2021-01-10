@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ProcessOsmDatabase inputFileName="spain" outputFileName="bus_madrid">
+
+  <relation type="network">
+  
+    <filter name="Red de buses regulares EMT (Madrid)">
+  	  <check count="1" route="PTv2">
+	    </check>
+    </filter>
+
+    <filter network="ES:M">
+      <check count="1" route="PTv2">
+      </check>
+	  </filter>
+
+    <filter network="ES:M:Alcalá de Henares">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Aranjuez">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Arganda del Rey">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Ciempozuelos">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Coslada-San Fernando de Henares">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Leganés">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Morata de Tajuña">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Pinto">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Rivas Vaciamadrid">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:San Martín de la Vega">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Torrejón de Ardoz">
+      <check count="1" route="PTv2">
+      </check>
+	  </filter>
+
+  </relation>
+
+</ProcessOsmDatabase>

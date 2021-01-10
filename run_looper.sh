@@ -36,7 +36,7 @@ function manageDataDir() {
 
     logInfo "Deleting files: $cmdDeleteFiles"
 
-    $cmdDeleteFiles
+    ### $cmdDeleteFiles
 
     # Create directory country-date
 
@@ -161,8 +161,11 @@ do
         # Create OSM database...
         createOsmDatabase
 
-        # Process OSM database...
+        # Process OSM database (Buses Comunidad de Madrid)...
         processOsmDatabase 'check_bus_madrid.xml'
+
+        # Process OSM database (Administrative Boundaries Spain)...
+        processOsmDatabase 'check_admin_spain.xml'
 
         # Copy GeoJSON files...
         copyGeoJsonFiles

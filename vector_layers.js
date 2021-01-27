@@ -11,14 +11,19 @@ function initVectorLayers() {
 
   initBusVectorLayers();
 
+  initHikingVectorLayers();
+
   // Layer group
   const vectorErrorsGroup = new ol.layer.Group({
     layers: [
       vectorBoundary,
+      vectorErrorsHikingLow,
       vectorErrorsBusLow,
       vectorErrorsAdminLow,
+      vectorErrorsHikingMedium,
       vectorErrorsBusMedium,
       vectorErrorsAdminMedium,
+      vectorErrorsHikingHigh,
       vectorErrorsBusHigh,
       vectorErrorsAdminHigh 
     ]
@@ -70,6 +75,21 @@ function initVectorLayers() {
           setCookie('bus_error_low', errorLevelElement.checked);
           vectorErrorsBusLow.setVisible(errorLevelElement.checked);
         }
+        else if (errorLevelElement.value === 'hiking_error_high') {
+  
+          setCookie('hiking_error_high', errorLevelElement.checked);
+          vectorErrorsHikingHigh.setVisible(errorLevelElement.checked);
+        }
+        else if (errorLevelElement.value === 'hiking_error_medium') {
+  
+          setCookie('hiking_error_medium', errorLevelElement.checked);
+          vectorErrorsHikingMedium.setVisible(errorLevelElement.checked);
+        }
+        else if (errorLevelElement.value === 'hiking_error_low') {
+  
+          setCookie('hiking_error_low', errorLevelElement.checked);
+          vectorErrorsHikingLow.setVisible(errorLevelElement.checked);
+        }
       }
     })
   }
@@ -101,7 +121,7 @@ function initVectorLayers() {
       let relation = feature.get('relation');
       let description = feature.get('description');
       
-      console.log('onClicked(): relation='+relation+", description="+description);
+      //console.log('onClicked(): relation='+relation+", description="+description);
       
       overlayLayer.setPosition(coordinate);
 

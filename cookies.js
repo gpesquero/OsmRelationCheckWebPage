@@ -106,6 +106,18 @@ function readCookies() {
   vectorErrorsBusLow.setVisible(busErrorLow);
   setErrorLevelCheckBox('bus_error_low', busErrorLow);
 
+  var hikingErrorHigh = (getCookie('hiking_error_high', 'true') === 'true');
+  vectorErrorsHikingHigh.setVisible(hikingErrorHigh);
+  setErrorLevelCheckBox('hiking_error_high', hikingErrorHigh);
+
+  var hikingErrorMedium = (getCookie('hiking_error_medium', 'true') === 'true');
+  vectorErrorsHikingMedium.setVisible(hikingErrorMedium);
+  setErrorLevelCheckBox('hiking_error_medium', hikingErrorMedium);
+
+  var hikingErrorLow = (getCookie('hiking_error_low', 'true') === 'true');
+  vectorErrorsHikingLow.setVisible(hikingErrorLow);
+  setErrorLevelCheckBox('hiking_error_low', hikingErrorLow);
+
   var lon = parseFloat(getCookie('mapLon', '0.0'));
   
   if (isNaN(lon)) {

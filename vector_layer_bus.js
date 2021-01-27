@@ -46,7 +46,7 @@ function initBusVectorLayers() {
   })
 
   var vectorSourceBusHigh = new ol.source.Vector({
-    url: './data/errors_bus_madrid_high.geojson',
+    url: './data/errors_bus_spain_high.geojson',
     format: new ol.format.GeoJSON() 
   })
     
@@ -72,7 +72,7 @@ function initBusVectorLayers() {
   });
 
   var vectorSourceBusMedium = new ol.source.Vector({
-    url: './data/errors_bus_madrid_medium.geojson',
+    url: './data/errors_bus_spain_medium.geojson',
     format: new ol.format.GeoJSON() 
   })
 
@@ -98,7 +98,7 @@ function initBusVectorLayers() {
   });
 
   var vectorSourceBusLow = new ol.source.Vector({
-    url: './data/errors_bus_madrid_low.geojson',
+    url: './data/errors_bus_spain_low.geojson',
     format: new ol.format.GeoJSON() 
   })
   

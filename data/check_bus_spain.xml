@@ -1,20 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<ProcessOsmDatabase inputFileName="spain" outputFileName="bus_madrid">
+<ProcessOsmDatabase inputFileName="spain" outputFileName="bus_spain">
+
+  <relation type="route_master">
+  
+    <filter route_master="bus">
+	    <check route="BusNetwork">
+	    </check>
+	  </filter>
+	
+  </relation>
+
+  <relation type="route">
+  
+    <filter route="bus">
+	    <check route="BusNetwork">
+	  </check>
+	  </filter>
+	
+  </relation>
 
   <relation type="network">
   
     <filter name="Red de buses regulares EMT (Madrid)">
   	  <check count="1" route="PTv2">
-	    </check>
+	  </check>
     </filter>
 
     <filter network="ES:M">
       <check count="1" route="PTv2">
       </check>
-	  </filter>
+	</filter>
 
     <filter network="ES:M:Alcalá de Henares">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Alcorcón">
       <check count="1" route="PTv2">
       </check>
     </filter>
@@ -39,12 +62,32 @@
       </check>
     </filter>
 
+    <filter network="ES:M:Fuenlabrada">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Getafe">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter network="ES:M:Leganés">
       <check count="1" route="PTv2">
       </check>
     </filter>
 
     <filter network="ES:M:Morata de Tajuña">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Móstoles">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Parla">
       <check count="1" route="PTv2">
       </check>
     </filter>
@@ -67,7 +110,12 @@
     <filter network="ES:M:Torrejón de Ardoz">
       <check count="1" route="PTv2">
       </check>
-	  </filter>
+    </filter>
+
+    <filter network="ES:M:Valdemoro">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
 
   </relation>
 

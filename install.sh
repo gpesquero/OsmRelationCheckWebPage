@@ -15,6 +15,7 @@ DEV_FILE_LIST="base_layers.js \
                vector_layer_admin.js \
                vector_layer_boundary.js \
                vector_layer_bus.js \
+               vector_layer_hiking.js \
                vector_layer_styles.js \
                vector_layers.js";
 

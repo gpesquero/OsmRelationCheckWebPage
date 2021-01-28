@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ProcessOsmDatabase inputFileName="spain" outputFileName="hiking_spain">
+
+  <relation type="superroute">
+
+    <filter route="hiking">
+      <check route="hiking">
+      </check>
+    </filter>
+
+  </relation>
+
+  <relation type="route">
+
+    <filter route="hiking">
+      <check route="hiking">
+      </check>
+    </filter>
+
+  </relation>
+  
+</ProcessOsmDatabase>

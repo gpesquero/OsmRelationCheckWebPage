@@ -27,10 +27,15 @@
 	  </check>
     </filter>
 
+    <filter network="ES:SG:Segovia">
+      <check count="1" route="PTv2">
+      </check>
+	  </filter>
+
     <filter network="ES:M">
       <check count="1" route="PTv2">
       </check>
-	</filter>
+	  </filter>
 
     <filter network="ES:M:Alcalá de Henares">
       <check count="1" route="PTv2">

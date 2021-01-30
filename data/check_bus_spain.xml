@@ -5,37 +5,42 @@
   <relation type="route_master">
   
     <filter route_master="bus">
-	    <check route="BusNetwork">
-	    </check>
-	  </filter>
+      <check route="BusNetwork">
+      </check>
+    </filter>
 	
   </relation>
 
   <relation type="route">
   
     <filter route="bus">
-	    <check route="BusNetwork">
-	  </check>
-	  </filter>
+      <check route="BusNetwork">
+      </check>
+    </filter>
 	
   </relation>
 
   <relation type="network">
   
     <filter name="Red de buses regulares EMT (Madrid)">
-  	  <check count="1" route="PTv2">
-	  </check>
-    </filter>
-
-    <filter network="ES:SG:Segovia">
       <check count="1" route="PTv2">
       </check>
-	  </filter>
+    </filter>
+
+    <filter name="Red de buses nocturnos EMT (Madrid)">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:GU:Azuqueca de Henares">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
 
     <filter network="ES:M">
       <check count="1" route="PTv2">
       </check>
-	  </filter>
+    </filter>
 
     <filter network="ES:M:Alcalá de Henares">
       <check count="1" route="PTv2">
@@ -58,6 +63,16 @@
     </filter>
 
     <filter network="ES:M:Ciempozuelos">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Collado Villalba">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Colmenar Viejo">
       <check count="1" route="PTv2">
       </check>
     </filter>
@@ -122,6 +137,27 @@
       </check>
     </filter>
 
+    <filter network="ES:M:Villanueva de la Cañada">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:SG">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:SG:Segovia">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:TO:Escalona de Alberche">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
   </relation>
 
 </ProcessOsmDatabase>
+

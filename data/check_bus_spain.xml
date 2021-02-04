@@ -8,20 +8,25 @@
       <check route="BusNetwork">
       </check>
     </filter>
-	
-  </relation>
+
+  </relation
 
   <relation type="route">
-  
+
     <filter route="bus">
       <check route="BusNetwork">
       </check>
     </filter>
-	
+
   </relation>
 
   <relation type="network">
-  
+
+    <filter name="Red de Autobuses de Largo Recorrido">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter name="Red de buses regulares EMT (Madrid)">
       <check count="1" route="PTv2">
       </check>
@@ -32,7 +37,17 @@
       </check>
     </filter>
 
+    <filter network="ES:GU">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter network="ES:GU:Azuqueca de Henares">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:GU:Guadalajara">
       <check count="1" route="PTv2">
       </check>
     </filter>
@@ -88,6 +103,11 @@
     </filter>
 
     <filter network="ES:M:Getafe">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Guadarrama">
       <check count="1" route="PTv2">
       </check>
     </filter>

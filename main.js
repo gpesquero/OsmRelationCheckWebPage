@@ -21,6 +21,9 @@ function init() {
     target: 'js-map'
   })
 
+  zoomSlider = new ol.control.ZoomSlider();
+  map.addControl(zoomSlider);
+
   initBaseLayers();
   
   // Set onMoveEnd event
@@ -65,3 +68,12 @@ function init() {
 
 }
 
+/* Set the width of the side panel to 250px (show it) */
+function openSidePanel() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+/* Set the width of the side panel to 0 (hide it) */
+function closeSidePanel() {
+  document.getElementById("mySidepanel").style.width = "0";
+}

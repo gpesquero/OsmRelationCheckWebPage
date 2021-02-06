@@ -32,7 +32,7 @@ function initVectorLayers() {
   map.addLayer(vectorErrorsGroup);
 
   // Error vector selection...
-  const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+  const errorLevelElements = document.querySelectorAll('.sidepanel > input[name=checkboxErrorLevel]');
 
   for (let errorLevelElement of errorLevelElements) {
 
@@ -41,7 +41,7 @@ function initVectorLayers() {
       //console.log('checkbox changed');
 
       // Get checkboxes...
-      const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+      const errorLevelElements = document.querySelectorAll('.sidepanel > input[name=checkboxErrorLevel]');
 
       for (let errorLevelElement of errorLevelElements) {
 
@@ -137,7 +137,7 @@ function setErrorLevelCheckBox(checkboxName, enable) {
   console.log('setErrorLevelCheckBox() '+checkboxName+', '+enable);
 
   // Get checkboxes...
-  const errorLevelElements = document.querySelectorAll('.sidebar > input[name=checkboxErrorLevel]');
+  const errorLevelElements = document.querySelectorAll('.sidepanel > input[name=checkboxErrorLevel]');
 
   for (let errorLevelElement of errorLevelElements) {
 

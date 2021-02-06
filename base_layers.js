@@ -39,7 +39,7 @@ function initBaseLayers() {
   map.addLayer(baseLayerGroup);
 
   // Base layer switching...
-  const baseLayerElements = document.querySelectorAll('.sidebar > input[name=baseLayerRadioButton]');
+  const baseLayerElements = document.querySelectorAll('.sidepanel > input[name=baseLayerRadioButton]');
 
   for (let baseLayerElement of baseLayerElements) {
 
@@ -71,7 +71,7 @@ function setBaseLayerRadioButton(baseLayerName) {
   console.log('setBaseLayerRadioButton() '+baseLayerName);
 
   // Get all radio buttons...
-  const baseLayerElements = document.querySelectorAll('.sidebar > input[name=baseLayerRadioButton]');
+  const baseLayerElements = document.querySelectorAll('.sidepanel > input[name=baseLayerRadioButton]');
 
   for (let baseLayerElement of baseLayerElements) {
 

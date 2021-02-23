@@ -33,17 +33,20 @@ function init() {
 
     //console.log('onMapMoveEnd');
 
-    var center = mapView.getCenter();
-
-    var lonLatPos = ol.proj.transform(center, 'EPSG:3857', 'EPSG:4326');
+    var lonLatPos = ol.proj.transform(mapView.getCenter(), 'EPSG:3857', 'EPSG:4326');
 
     var lon = lonLatPos[0];
     var lat = lonLatPos[1];
     var zoom = mapView.getZoom();
 
+    //console.log("Center Lon: " + lon);
+    //console.log("Center Lat: " + lat);
+
     setCookie('mapLon', lon);
     setCookie('mapLat', lat);
     setCookie('mapZoom', zoom);
+
+    showVisibleBusLines(zoom);
   }
   
   // Vector layers
@@ -76,4 +79,86 @@ function openSidePanel() {
 /* Set the width of the side panel to 0 (hide it) */
 function closeSidePanel() {
   document.getElementById("mySidepanel").style.width = "0";
+}
+
+function showVisibleBusLines(zoom) {
+
+  if (zoom < 14) {
+
+    // Hide bus lines
+
+    console.log("Hide bus lines");
+
+    return;
+  }
+
+  // Get map view extends
+
+  var viewExtends = mapView.calculateExtent();
+
+  var pos1 = [viewExtends[0], viewExtends[1]];
+  var pos2 = [viewExtends[2], viewExtends[3]];
+
+  var coord1 = ol.proj.transform(pos1, 'EPSG:3857', 'EPSG:4326');
+  var coord2 = ol.proj.transform(pos2, 'EPSG:3857', 'EPSG:4326');
+
+  //console.log(coord1);
+  //console.log(coord2);
+
+  var minLon = coord1[0];
+  var maxLon = coord2[0];
+  var minLat = coord1[1];
+  var maxLat = coord2[1];
+
+  // Create fetch url 
+  
+  var url = "/fetchBusLines.php?" +
+            "minLon=" + minLon + "&" +
+            "maxLon=" + maxLon + "&" +
+            "minLat=" + minLat + "&" +
+            "maxLat=" + maxLat;
+
+  //console.log(url);
+
+  fetch(url)
+    .then(response => {
+
+      if (response.ok) {
+
+        //console.log("Fetch response Ok!!");
+
+        return response.text();   
+      }
+      else {
+
+        console.log("Fetch response NOT Ok!!");
+      }
+    })
+    .then(text => {
+    
+      console.log("Fetch received text: " + text);
+    });
+    
+  //var element = document.getElementById("label_bus_line_count");
+
+  //element.innerHTML = getBusLineCount();
+
+  //element.innerHTML = increaseZoom(zoom);
+
+  //const http = new XMLHttpRequest()
+
+  //http.open("GET", "http://localhost");
+
+  //var myURL = document.location;
+  //document.location = myURL + "?zoom=" + zoom;
+
+  //var url=window.location.href + "?zoom=" + zoom;
+
+  //http.open("GET", url);
+  //http.send();
+  
+  //http.onload = () => console.log(http.responseText);
+
+  //element.innerHTML = 'Line count: <?php echo getBusLineCount()?>';
+
 }

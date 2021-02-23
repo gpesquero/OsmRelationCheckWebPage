@@ -8,6 +8,7 @@ OL_VERSION=6.4.3
 OL_LIB_FILE_LIST="ol.css ol.css.map ol.js ol.js.map";
 DEV_FILE_LIST="base_layers.js \
                cookies.js \
+               fetchBusLines.php \
                globeicon.png \
                index.html \
                main.js \

@@ -27,9 +27,7 @@
 
   if (!$db_connection) {
 
-    //echo "DB connect() error: " .  mysqli_connect_errno() . " (" . mysqli_connect_error() . ")" . PHP_EOL;
-
-    print "Error0";
+    print "DB connect() error: " .  mysqli_connect_errno() . " (" . mysqli_connect_error() . ")";
 
     return;
   }
@@ -38,10 +36,8 @@
 
   if (!$result) {
 
-    //echo 'Could not run query: ' . mysqli_error($db_connection) . "<br>" . PHP_EOL;
+    print "Could not run query: " . mysqli_error($db_connection);
     
-    print "Error1";
-
     mysqli_close($db_connection);
 
     return;

@@ -128,6 +128,12 @@ function copyGeoJsonFiles() {
     logInfo 'Copying GeoJson Files...'
 
     cp ./data/$country'-'$currentDate/*.geojson /var/www/html/data
+
+    # Create destination dir for bus lines GeoJSON files...
+    mkdir /var/www/html/data/bus_lines
+
+    # Copy bus lines GeoJSON files...
+    cp ./data/$country'-'$currentDate/bus_lines/*.geojson /var/www/html/data/bus_lines 
 }
 
 ##########################################################
@@ -172,6 +178,9 @@ do
 
         # Copy GeoJSON files...
         copyGeoJsonFiles
+
+        logInfo 'Finished! Exiting...'
+        exit 0
     fi
 
 	logInfo 'Finished!! Sleeping for 6 hours...'

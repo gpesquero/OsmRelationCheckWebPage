@@ -46,7 +46,7 @@ function init() {
     setCookie('mapLat', lat);
     setCookie('mapZoom', zoom);
 
-    showVisibleBusLines(zoom);
+    getVisibleBusLines(zoom);
   }
   
   // Vector layers

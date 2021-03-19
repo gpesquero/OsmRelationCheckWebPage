@@ -27,7 +27,7 @@
 
   if (!$db_connection) {
 
-    print "DB connect() error: " .  mysqli_connect_errno() . " (" . mysqli_connect_error() . ")";
+    print "ERROR: DB connect(): " .  mysqli_connect_errno() . " (" . mysqli_connect_error() . ")";
 
     return;
   }
@@ -36,7 +36,7 @@
 
   if (!$result) {
 
-    print "Could not run query: " . mysqli_error($db_connection);
+    print "ERROR: Could not run query: " . mysqli_error($db_connection);
     
     mysqli_close($db_connection);
 
@@ -51,5 +51,5 @@
 
   mysqli_close($db_connection);
   
-  print $bus_line_count;
+  print "BUS_LINES(" . $bus_line_count . ") <" . "164554,164561" . ">";
 ?>

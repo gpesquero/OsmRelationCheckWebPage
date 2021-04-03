@@ -37,6 +37,11 @@
       </check>
     </filter>
 
+    <filter name="Red de buses universitarios EMT (Madrid)">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter network="ES:GU">
       <check count="1" route="PTv2">
       </check>
@@ -73,6 +78,11 @@
     </filter>
 
     <filter network="ES:M:Arganda del Rey">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Cercedilla">
       <check count="1" route="PTv2">
       </check>
     </filter>
@@ -123,6 +133,11 @@
     </filter>
 
     <filter network="ES:M:Móstoles">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Navalcarnero">
       <check count="1" route="PTv2">
       </check>
     </filter>

@@ -67,6 +67,11 @@
       </check>
     </filter>
 
+    <filter network="ES:M:Alcobendas">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter network="ES:M:Alcorcón">
       <check count="1" route="PTv2">
       </check>
@@ -158,6 +163,16 @@
     </filter>
 
     <filter network="ES:M:San Martín de la Vega">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:San Sebastián de los Reyes">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Torrelodones">
       <check count="1" route="PTv2">
       </check>
     </filter>

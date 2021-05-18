@@ -52,6 +52,11 @@
       </check>
     </filter>
 
+    <filter network="ES:GU:Cabanillas del Campo">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
     <filter network="ES:GU:Guadalajara">
       <check count="1" route="PTv2">
       </check>
@@ -153,6 +158,11 @@
     </filter>
 
     <filter network="ES:M:Pinto">
+      <check count="1" route="PTv2">
+      </check>
+    </filter>
+
+    <filter network="ES:M:Pozuelo de Alarcón">
       <check count="1" route="PTv2">
       </check>
     </filter>
